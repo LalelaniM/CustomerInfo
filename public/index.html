@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Customer Information</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+    <main>
+
+        <!-- ==========================================
+             CUSTOMER INFORMATION FORM
+        =========================================== -->
+
+        <section class="card">
+
+            <h1 class="main-title">Customer Demographics</h1> 
+            <p class="subtitle"> Capture customer information </p>
+                <!-- ==========================================
+                DAILY SUMMARY CARDS
+                =========================================== -->
+
+                <div class="summary-cards">
+
+                    <!-- TOTAL SALES -->
+
+                    <div class="summary-card">
+
+                        <div class="summary-label">
+                            Total Sales Today
+                        </div>
+
+                        <div
+                            id="totalSales"
+                            class="summary-value"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOTAL RECORDS -->
+
+                    <div class="summary-card">
+
+                        <div class="summary-label">
+                            Records Entered Today
+                        </div>
+
+                        <div
+                            id="totalRecords"
+                            class="summary-value"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+
+                    <!-- OUTSTANDING -->
+
+                    <div class="summary-card">
+
+                        <div class="summary-label">
+                            Outstanding Entries Today
+                        </div>
+
+                        <div
+                            id="outstandingSales"
+                            class="summary-value"
+                        >
+                            0
+                        </div>
+
+                    </div>
+
+                </div>
+            <form id="form">
+
+                <!-- DATE -->
+
+                <label>
+                    Date
+
+                    <input
+                        id="customer_date"
+                        name="customer_date"
+                        type="date"
+                        required
+                    >
+                </label>
+
+
+                <!-- RACE -->
+
+                <label>
+                    Race
+
+                    <select name="race" required>
+
+                        <option value="">
+                            Select race
+                        </option>
+
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Arabic">Arabic</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- GENDER -->
+
+                <label>
+                    Gender
+
+                    <select name="gender" required>
+
+                        <option value="">
+                            Select gender
+                        </option>
+
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- LOCATION -->
+
+                <label>
+                    Location
+
+                    <select name="location" required>
+
+                        <option value="">
+                            Select location
+                        </option>
+
+                        <option value="Local">Local</option>
+                        <option value="Foreign">Foreign</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- AGE -->
+
+                <label>
+                    Age
+
+                    <select name="age_group" required>
+
+                        <option value="">
+                            Select age
+                        </option>
+
+                        <option value="30s">30s</option>
+                        <option value="40s">40s</option>
+                        <option value="50s">50s</option>
+                        <option value="60s">60s</option>
+                        <option value="over">over</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- REGULAR / FIRST TIME -->
+
+                <label>
+                    Regular/First Time
+
+                    <select
+                        name="regular_first_time"
+                        required
+                    >
+
+                        <option value="">
+                            Select option
+                        </option>
+
+                        <option value="Regular">
+                            Regular
+                        </option>
+
+                        <option value="First Time">
+                            First Time
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- SALESPERSON -->
+
+                <label>
+                    Salesperson
+
+                    <select
+                        name="salesperson"
+                        required
+                    >
+
+                        <option value="">
+                            Select salesperson
+                        </option>
+
+                        <option value="Sanele">
+                            Sanele
+                        </option>
+
+                        <option value="Nino">
+                            Nino
+                        </option>
+
+                        <option value="Glory">
+                            Glory
+                        </option>
+
+                        <option value="Sarah">
+                            Sarah
+                        </option>
+
+                        <option value="Mandy">
+                            Mandy
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- SUBMIT -->
+
+                <button type="submit">
+                    Submit
+                </button>
+
+            </form>
+
+
+            <div
+                id="msg"
+                hidden
+            ></div>
+
+        </section>
+
+
+        
+<!-- ==========================================
+     CUSTOMER RECORDS
+=========================================== -->
+
+<section class="card">
+
+    <div class="head">
+
+        <div>
+
+            <h2>Customer Records</h2>
+
+            <span id="count">
+                0 records
+            </span>
+
+        </div>
+
+
+        <a href="/download">
+            Download Excel
+        </a>
+
+    </div>
+
+
+    <!-- ==========================================
+         DATE NAVIGATION
+    =========================================== -->
+
+    <div class="date-navigation">
+
+        <button
+            type="button"
+            id="previousDay"
+        >
+            ← Previous Day
+        </button>
+
+
+        <div class="selected-date">
+
+            <label for="recordDate">
+                Records for
+            </label>
+
+            <input
+                type="date"
+                id="recordDate"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            id="nextDay"
+        >
+            Next Day →
+        </button>
+
+    </div>
+
+
+    <!-- ==========================================
+         CUSTOMER TABLE
+    =========================================== -->
+
+    <div class="tablewrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+
+                    <th>Race</th>
+
+                    <th>Gender</th>
+
+                    <th>Location</th>
+
+                    <th>Age</th>
+
+                    <th>
+                        Regular/First Time
+                    </th>
+
+                    <th>
+                        Salesperson
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="rows">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==========================================
+         PAGINATION
+    =========================================== -->
+
+    <div class="pages">
+
+        <button id="prev">
+            Previous
+        </button>
+
+        <span id="page">
+            Page 1 of 1
+        </span>
+
+        <button id="next">
+            Next
+        </button>
+
+    </div>
+
+</section>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         EDIT CUSTOMER MODAL
+    =========================================== -->
+
+    <div
+        id="editModal"
+        class="modal"
+        hidden
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h2>Edit Customer</h2>
+
+                <button
+                    type="button"
+                    id="closeModal"
+                    class="close-btn"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="editForm">
+
+                <!-- DATE -->
+
+                <label>
+                    Date
+
+                    <input
+                        id="edit_customer_date"
+                        name="customer_date"
+                        type="date"
+                        required
+                    >
+
+                </label>
+
+
+                <!-- RACE -->
+
+                <label>
+                    Race
+
+                    <select
+                        id="edit_race"
+                        name="race"
+                        required
+                    >
+
+                        <option value="">
+                            Select race
+                        </option>
+
+                        <option value="Black">Black</option>
+                        <option value="White">White</option>
+                        <option value="Indian">Indian</option>
+                        <option value="Asian">Asian</option>
+                        <option value="Arabic">Arabic</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- GENDER -->
+
+                <label>
+                    Gender
+
+                    <select
+                        id="edit_gender"
+                        name="gender"
+                        required
+                    >
+
+                        <option value="">
+                            Select gender
+                        </option>
+
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- LOCATION -->
+
+                <label>
+                    Location
+
+                    <select
+                        id="edit_location"
+                        name="location"
+                        required
+                    >
+
+                        <option value="">
+                            Select location
+                        </option>
+
+                        <option value="Local">Local</option>
+                        <option value="Foreign">Foreign</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- AGE -->
+
+                <label>
+                    Age
+
+                    <select
+                        id="edit_age_group"
+                        name="age_group"
+                        required
+                    >
+
+                        <option value="">
+                            Select age
+                        </option>
+
+                        <option value="30s">30s</option>
+                        <option value="40s">40s</option>
+                        <option value="50s">50s</option>
+                        <option value="60s">60s</option>
+                        <option value="over">over</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- REGULAR / FIRST TIME -->
+
+                <label>
+                    Regular/First Time
+
+                    <select
+                        id="edit_regular_first_time"
+                        name="regular_first_time"
+                        required
+                    >
+
+                        <option value="">
+                            Select option
+                        </option>
+
+                        <option value="Regular">
+                            Regular
+                        </option>
+
+                        <option value="First Time">
+                            First Time
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- SALESPERSON -->
+
+                <label>
+                    Salesperson
+
+                    <select
+                        id="edit_salesperson"
+                        name="salesperson"
+                        required
+                    >
+
+                        <option value="">
+                            Select salesperson
+                        </option>
+
+                        <option value="Sanele">Sanele</option>
+                        <option value="Nino">Nino</option>
+                        <option value="Glory">Glory</option>
+                        <option value="Sarah">Sarah</option>
+                        <option value="Mandy">Mandy</option>
+
+                    </select>
+
+                </label>
+
+
+                <!-- MODAL ACTIONS -->
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        id="cancelEdit"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
